@@ -13,6 +13,11 @@
 
     <script type="text/babel">
 
+     var data = [
+       {author: "山田", text: "スペックを流していて引っかかったものだけ対応しました。"},
+       {author: "鈴木", text: "LGTM"}
+     ];
+
      var Comment = React.createClass({
        render: function() {
          return (
@@ -28,10 +33,16 @@
 
      var CommentList = React.createClass({
        render: function() {
+         var commentNodes = this.props.data.map(function(comment) {
+           return (
+             <Comment author={comment.author}>
+               {comment.text}
+             </Comment>
+           );
+         });
          return (
            <div className="commentList">
-             <Comment author="Pete Hunt">This is one comment</Comment>
-             <Comment author="Jordan Walke">This is *another* comment</Comment>
+             {commentNodes}
            </div>
          );
        }
@@ -41,7 +52,7 @@
        render: function() {
          return (
            <div className="commentForm">
-             Hello, world! I am a CommentForm.
+            /* ここにコメントフォームが入る */
            </div>
          );
        }
@@ -51,15 +62,15 @@
        render: function() {
          return (
            <div className="commentBox">
-             <h1>Comments</h1>
-             <CommentList />
+             <h1>コメント一覧</h1>
+             <CommentList data={this.props.data} />
              <CommentForm />
            </div>
          );
        }
      });
 
-     ReactDOM.render(<CommentBox />, document.getElementById('content'));
+     ReactDOM.render(<CommentBox data={data} />, document.getElementById('content'));
 
     </script>
   </body>
